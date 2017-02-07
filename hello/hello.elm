@@ -1,4 +1,4 @@
-import Html exposing (text)
+import Html exposing (Html, text)
 
-main : Html.Html
+main : Html ()
 main = text "Hello, World!"
