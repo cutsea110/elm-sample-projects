@@ -1,14 +1,28 @@
-import Date exposing (..)
+import Date exposing (Date, fromTime)
 import Time exposing (Time, every, second)
-import Signal exposing (Signal)
 import Html exposing (Html, text)
 
-main : Signal Html
-main = Signal.map (text << toYMDHMS << fromTime) (every Time.second)
+main = Html.program
+       { init = init
+       , view = view
+       , update = update
+       , subscriptions = subscriptions
+       }
 
-toYMDHMS : Date -> String
-toYMDHMS d =
-  let ymd = toString (year d) ++ "-" ++ toString (month d) ++ "-" ++ toString (day d)
-      w = "(" ++ toString (dayOfWeek d) ++ ")"
-      hms = toString (hour d) ++ ":" ++ toString (minute d) ++ ":" ++ toString (Date.second d)
-  in ymd ++ " " ++ w ++ " " ++ hms
+type alias Model = Time
+
+init : (Model, Cmd Msg)
+init = (0, Cmd.none)
+
+type Msg = Tick Time
+
+update : Msg -> Model -> (Model, Cmd Msg)
+update msg model =
+    case msg of
+        Tick newTime -> (newTime, Cmd.none)
+
+subscriptions : Model -> Sub Msg
+subscriptions model = every second Tick
+
+view : Model -> Html Msg
+view model = text (toString (fromTime model))
