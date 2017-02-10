@@ -1,16 +1,44 @@
-import Signal exposing (..)
-import Time exposing (..)
-import Mouse
-import Graphics.Element exposing (..)
+module Main exposing (..)
 
-type Update = Move (Int, Int) | TimeDelta (Float, Float)
+import AnimationFrame exposing (diffs)
+import Html exposing (Html, text)
+import Time exposing (Time)
+import Mouse exposing (..)
 
-updates : Signal Update
-updates = merge (map Move Mouse.position) (map TimeDelta timedelta)
+main = Html.program
+       { init = init
+       , view = view
+       , update = update
+       , subscriptions = subs
+       }
 
-timedelta : Signal (Float, Float)
-timedelta = map2 (\b n -> (b, n)) Mouse.isDown (fps 30) |>
-            foldp (\(b, n) (_, t) -> if b then (n, t+n) else (n, 0)) (0, 0)
+type alias Model = { total: Time
+                   , state: Bool
+                   , position : Position
+                   }
 
-main : Signal Element
-main = map show updates
+init : (Model, Cmd Msg)
+init = ({total = 0, state = False, position = {x = 0, y = 0}}, Cmd.none)
+
+type Msg = Tick Time | MouseUp | MouseDown | MouseMove Position
+
+view : Model -> Html Msg
+view model = text (toString model)
+
+update : Msg -> Model -> (Model, Cmd Msg)
+update msg model =
+    case msg of
+        Tick t -> if model.state
+                  then ({model | total = model.total + t}, Cmd.none)
+                  else (model, Cmd.none)
+        MouseDown -> ({model | state = True}, Cmd.none)
+        MouseUp -> ({model | state = False}, Cmd.none)
+        MouseMove pos -> ({model | position = pos}, Cmd.none)
+
+subs : Model -> Sub Msg
+subs model =
+    Sub.batch [ Mouse.downs (\_ -> MouseDown)
+              , Mouse.ups (\_ -> MouseUp)
+              , Mouse.moves MouseMove
+              , diffs Tick
+              ]
