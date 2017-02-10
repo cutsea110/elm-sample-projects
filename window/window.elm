@@ -15,7 +15,7 @@ type alias Model = { size : Window.Size
                    }
 
 init : (Model, Cmd Msg)
-init = (Model (Window.Size 0 0), Task.perform (\_ -> Fail) Window.size)
+init = (Model (Window.Size 0 0), Task.perform Resize Window.size)
 
 type Msg = Resize Window.Size
          | Fail
