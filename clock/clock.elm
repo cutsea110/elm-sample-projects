@@ -23,7 +23,7 @@ update msg model =
         Tick newTime -> (newTime, Cmd.none)
 
 subscriptions : Model -> Sub Msg
-subscriptions model = every Time.second Tick
+subscriptions model = every Time.millisecond Tick
 
 view : Model -> Html Msg
 view model = text (toYMDHMS (fromTime model))
