@@ -32,7 +32,6 @@ initializedModel = Model {x = 0, y = 0} (Window.Size 0 0) 0
 type Msg = Tick Time
          | Move Position
          | Resize Window.Size
-         | Fail
 
 view : Model -> Html Msg
 view model =
@@ -57,4 +56,3 @@ update msg model =
         Tick t -> ({model | ticks = t}, Cmd.none)
         Move pos -> ({model | position = pos}, Cmd.none)
         Resize sz -> ({model | windowSize = sz}, Cmd.none)
-        Fail -> (model, Cmd.none)
