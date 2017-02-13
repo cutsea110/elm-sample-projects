@@ -46,7 +46,7 @@
 
             var myMarker = new google.maps.Marker({position: loc, title: loc.msg});
             myMarker.setMap(gmap);
-            var infoWindow = new google.maps.InfoWindow({content: '<div>'+loc.msg+'</div>'});
+            var infoWindow = new google.maps.InfoWindow({content: loc.msg});
             myMarker.addListener('click', function() {
               infoWindow.open(gmap, myMarker);
             });
