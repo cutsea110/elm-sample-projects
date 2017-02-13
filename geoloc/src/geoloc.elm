@@ -5,6 +5,9 @@ import Geolocation exposing (..)
 import Html exposing (..)
 import Task
 
+import SharedModels exposing (GMapLoc)
+import Port exposing (markerMove)
+
 main = Html.program
        { init = init
        , view = view
@@ -13,6 +16,12 @@ main = Html.program
        }
 
 type alias Model = Location
+locToGMLoc : Location -> GMapLoc
+locToGMLoc loc = { lat = loc.latitude
+                 , lng = loc.longitude
+                 , tim = loc.timestamp
+                 , msg = toString (fromTime loc.timestamp)
+                 }
 
 init : (Model, Cmd Msg)
 init = (initializeModel, Task.attempt processLocation Geolocation.now)
@@ -48,7 +57,7 @@ view model =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        LocMsg loc -> (loc, Cmd.none)
+        LocMsg loc -> (loc, markerMove (locToGMLoc loc))
         Failure -> (model, Cmd.none)
 
 subs : Model -> Sub Msg
