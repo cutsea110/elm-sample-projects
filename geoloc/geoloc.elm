@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Date exposing (fromTime)
 import Geolocation exposing (..)
 import Html exposing (..)
 import Task
@@ -27,7 +28,22 @@ initializeModel = Location 0 0 0 Nothing Nothing 0
 type Msg = LocMsg Location | Failure
 
 view : Model -> Html Msg
-view model = text (toString model)
+view model =
+    dl []
+        [ dt [] [text "latitude"]
+        , dd [] [text (toString model.latitude)]
+        , dt [] [text "longitude"]
+        , dd [] [text (toString model.longitude)]
+        , dt [] [text "accuracy"]
+        , dd [] [text (toString model.accuracy)]
+        , dt [] [text "altitude"]
+        , dd [] [text (toString model.altitude)]
+        , dt [] [text "movement"]
+        , dd [] [text (toString model.movement)]
+        , dt [] [text "timestamp"]
+        , dd [] [text (toString (fromTime model.timestamp))]
+        ]
+
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
