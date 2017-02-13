@@ -10148,7 +10148,7 @@ var _user$project$Main$update = F2(
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								formattedAddress: _user$project$Main$toAddress(_p0._0._0.results)
+								formattedAddress: _elm_lang$core$Basics$toString(_p0._0._0)
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};

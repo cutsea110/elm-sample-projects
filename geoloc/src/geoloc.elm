@@ -73,7 +73,7 @@ update msg model =
         LocMsg loc -> ({model | location = loc}, Cmd.batch [ markerMove (locToGMLoc loc)
                                                            , geocodeGet loc
                                                            ])
-        GeoMsg (Ok res) -> ({model | formattedAddress = toAddress res.results }, Cmd.none)
+        GeoMsg (Ok res) -> ({model | formattedAddress = toString res }, Cmd.none)
         GeoMsg (Err _) -> (model, Cmd.none)
         Failure -> (model, Cmd.none)
 
