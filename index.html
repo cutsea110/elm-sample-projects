@@ -44,10 +44,8 @@
             var myLatlng = new google.maps.LatLng(loc);
             gmap.setCenter(loc);
 
-            var myMarker = new google.maps.Marker({position: loc, title: loc.msg});
+            var myMarker = new google.maps.Marker({position: loc, label: loc.msg});
             myMarker.setMap(gmap);
-            var infoWindow = new google.maps.InfoWindow({content: loc.msg});
-            infoWindow.open(gmap, myMarker);
         });
     </script>
   </body>
