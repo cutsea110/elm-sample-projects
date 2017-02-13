@@ -9912,7 +9912,7 @@ var _user$project$Port$markerMove = _elm_lang$core$Native_Platform.outgoingPort(
 var _user$project$Main$toAddress = function (res) {
 	return A2(
 		_elm_lang$core$Maybe$withDefault,
-		'-',
+		'--',
 		A2(
 			_elm_lang$core$Maybe$map,
 			function (r) {
@@ -10100,7 +10100,7 @@ var _user$project$Main$locToGMLoc = function (loc) {
 			_elm_lang$core$Date$fromTime(loc.timestamp))
 	};
 };
-var _user$project$Main$myKey = 'AIzaSyBDEjL4Y5cx7eiMzjGwU096b1PAtgQBbw0';
+var _user$project$Main$myKey = 'AIzaSyDSb-RzqLlys7vGUjjcTHoO6bTTqIckq-0';
 var _user$project$Main$Model = F2(
 	function (v1, v2) {
 		return {location: v1, formattedAddress: v2};
@@ -10148,7 +10148,7 @@ var _user$project$Main$update = F2(
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								formattedAddress: _elm_lang$core$Basics$toString(_p0._0._0)
+								formattedAddress: _user$project$Main$toAddress(_p0._0._0.results)
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};

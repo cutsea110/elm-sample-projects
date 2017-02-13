@@ -13,7 +13,7 @@ import SharedModels exposing (GMapLoc)
 import Port exposing (markerMove)
 
 myKey : ApiKey
-myKey = "AIzaSyBDEjL4Y5cx7eiMzjGwU096b1PAtgQBbw0"
+myKey = "AIzaSyDSb-RzqLlys7vGUjjcTHoO6bTTqIckq-0"
 
 main = Html.program
        { init = init
@@ -73,12 +73,12 @@ update msg model =
         LocMsg loc -> ({model | location = loc}, Cmd.batch [ markerMove (locToGMLoc loc)
                                                            , geocodeGet loc
                                                            ])
-        GeoMsg (Ok res) -> ({model | formattedAddress = toString res }, Cmd.none)
+        GeoMsg (Ok res) -> ({model | formattedAddress =  toAddress res.results }, Cmd.none)
         GeoMsg (Err _) -> (model, Cmd.none)
         Failure -> (model, Cmd.none)
 
 toAddress : List GeocodingResult -> String
-toAddress res = withDefault "-" (Maybe.map (\r -> r.formattedAddress) (head res))
+toAddress res = withDefault "--" (Maybe.map (\r -> r.formattedAddress) (head res))
 
 subs : Model -> Sub Msg
 subs model = Geolocation.changes LocMsg
