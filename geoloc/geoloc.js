@@ -13886,7 +13886,7 @@ var _user$project$Main$view = function (model) {
 				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('latitude'),
+					_0: _elm_lang$html$Html$text('formatted address'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -13896,8 +13896,7 @@ var _user$project$Main$view = function (model) {
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(
-							_elm_lang$core$Basics$toString(model.location.latitude)),
+						_0: _elm_lang$html$Html$text(model.formattedAddress),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
@@ -13907,7 +13906,7 @@ var _user$project$Main$view = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('longitude'),
+							_0: _elm_lang$html$Html$text('latitude'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -13918,7 +13917,7 @@ var _user$project$Main$view = function (model) {
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html$text(
-									_elm_lang$core$Basics$toString(model.location.longitude)),
+									_elm_lang$core$Basics$toString(model.location.latitude)),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
@@ -13928,7 +13927,7 @@ var _user$project$Main$view = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text('accuracy'),
+									_0: _elm_lang$html$Html$text('longitude'),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
@@ -13939,7 +13938,7 @@ var _user$project$Main$view = function (model) {
 									{
 										ctor: '::',
 										_0: _elm_lang$html$Html$text(
-											_elm_lang$core$Basics$toString(model.location.accuracy)),
+											_elm_lang$core$Basics$toString(model.location.longitude)),
 										_1: {ctor: '[]'}
 									}),
 								_1: {
@@ -13949,7 +13948,7 @@ var _user$project$Main$view = function (model) {
 										{ctor: '[]'},
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('altitude'),
+											_0: _elm_lang$html$Html$text('accuracy'),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -13960,7 +13959,7 @@ var _user$project$Main$view = function (model) {
 											{
 												ctor: '::',
 												_0: _elm_lang$html$Html$text(
-													_elm_lang$core$Basics$toString(model.location.altitude)),
+													_elm_lang$core$Basics$toString(model.location.accuracy)),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
@@ -13970,7 +13969,7 @@ var _user$project$Main$view = function (model) {
 												{ctor: '[]'},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('movement'),
+													_0: _elm_lang$html$Html$text('altitude'),
 													_1: {ctor: '[]'}
 												}),
 											_1: {
@@ -13981,7 +13980,7 @@ var _user$project$Main$view = function (model) {
 													{
 														ctor: '::',
 														_0: _elm_lang$html$Html$text(
-															_elm_lang$core$Basics$toString(model.location.movement)),
+															_elm_lang$core$Basics$toString(model.location.altitude)),
 														_1: {ctor: '[]'}
 													}),
 												_1: {
@@ -13991,7 +13990,7 @@ var _user$project$Main$view = function (model) {
 														{ctor: '[]'},
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html$text('timestamp'),
+															_0: _elm_lang$html$Html$text('movement'),
 															_1: {ctor: '[]'}
 														}),
 													_1: {
@@ -14002,8 +14001,7 @@ var _user$project$Main$view = function (model) {
 															{
 																ctor: '::',
 																_0: _elm_lang$html$Html$text(
-																	_elm_lang$core$Basics$toString(
-																		_elm_lang$core$Date$fromTime(model.location.timestamp))),
+																	_elm_lang$core$Basics$toString(model.location.movement)),
 																_1: {ctor: '[]'}
 															}),
 														_1: {
@@ -14013,7 +14011,7 @@ var _user$project$Main$view = function (model) {
 																{ctor: '[]'},
 																{
 																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('formatted address'),
+																	_0: _elm_lang$html$Html$text('timestamp'),
 																	_1: {ctor: '[]'}
 																}),
 															_1: {
@@ -14023,7 +14021,9 @@ var _user$project$Main$view = function (model) {
 																	{ctor: '[]'},
 																	{
 																		ctor: '::',
-																		_0: _elm_lang$html$Html$text(model.formattedAddress),
+																		_0: _elm_lang$html$Html$text(
+																			_elm_lang$core$Basics$toString(
+																				_elm_lang$core$Date$fromTime(model.location.timestamp))),
 																		_1: {ctor: '[]'}
 																	}),
 																_1: {ctor: '[]'}

@@ -45,7 +45,9 @@ type Msg = LocMsg Location | GeoMsg (Result Http.Error Geocoding.Response) | Fai
 view : Model -> Html Msg
 view model =
     dl []
-        [ dt [] [text "latitude"]
+        [ dt [] [text "formatted address"]
+        , dd [] [text model.formattedAddress]
+        , dt [] [text "latitude"]
         , dd [] [text (toString model.location.latitude)]
         , dt [] [text "longitude"]
         , dd [] [text (toString model.location.longitude)]
@@ -57,8 +59,6 @@ view model =
         , dd [] [text (toString model.location.movement)]
         , dt [] [text "timestamp"]
         , dd [] [text (toString (fromTime model.location.timestamp))]
-        , dt [] [text "formatted address"]
-        , dd [] [text model.formattedAddress]
         ]
 
 
