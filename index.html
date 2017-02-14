@@ -50,7 +50,8 @@
             var myMarker = new google.maps.Marker({position: loc, title: loc.msg});
             myMarker.setMap(gmap);
 
-            routePath.getPath().insertAt(routeCoordinates.length, loc);
+            var latlng = new google.maps.LatLng(loc.lat, loc.lng);
+            routeCoordinates.push(latlng);
             console.log("routes", routeCoordinates);
         });
     </script>
