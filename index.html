@@ -42,16 +42,21 @@
         });
         routePath.setMap(gmap);
 
+        var markerList = new google.maps.MVCArray();
+
         map.ports.markerMove.subscribe(function(loc) {
             console.log("received", loc);
             var myLatlng = new google.maps.LatLng(loc);
             gmap.setCenter(loc);
 
+            markerList.forEach(function (mkr, idx) {
+              mkr.setMap(null);
+            });
             var myMarker = new google.maps.Marker({position: loc, title: loc.msg});
             myMarker.setMap(gmap);
+            markerList.push(myMarker);
 
-            var latlng = new google.maps.LatLng(loc.lat, loc.lng);
-            routeCoordinates.push(latlng);
+            routeCoordinates.push(myLatlng);
             console.log("routes", routeCoordinates);
         });
     </script>
