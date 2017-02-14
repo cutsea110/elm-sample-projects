@@ -33,16 +33,11 @@ locToGMLoc loc = { lat = loc.latitude
                  }
 
 init : (Model, Cmd Msg)
-init = (initializeModel, Task.attempt processLocation Geolocation.now)
-
-processLocation res =
-    case res of
-        Ok loc -> LocMsg loc
-        Err _ -> Failure
+init = (initializeModel, Cmd.none)
 
 initializeModel : Model
 initializeModel = { location = Location 0 0 0 Nothing Nothing 0
-                  , formattedAddress = ""
+                  , formattedAddress = "--"
                   }
 
 type Msg = LocMsg Location | GeoMsg (Result Http.Error Geocoding.Response) | Failure

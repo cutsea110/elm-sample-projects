@@ -14044,8 +14044,9 @@ var _user$project$Main$view = function (model) {
 };
 var _user$project$Main$initializeModel = {
 	location: A6(_elm_lang$geolocation$Geolocation$Location, 0, 0, 0, _elm_lang$core$Maybe$Nothing, _elm_lang$core$Maybe$Nothing, 0),
-	formattedAddress: ''
+	formattedAddress: '--'
 };
+var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initializeModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$locToGMLoc = function (loc) {
 	return {
 		lat: loc.latitude,
@@ -14116,19 +14117,6 @@ var _user$project$Main$update = F2(
 	});
 var _user$project$Main$LocMsg = function (v1) {
 	return {ctor: 'LocMsg', _0: v1};
-};
-var _user$project$Main$processLocation = function (res) {
-	var _p2 = res;
-	if (_p2.ctor === 'Ok') {
-		return _user$project$Main$LocMsg(_p2._0);
-	} else {
-		return _user$project$Main$Failure;
-	}
-};
-var _user$project$Main$init = {
-	ctor: '_Tuple2',
-	_0: _user$project$Main$initializeModel,
-	_1: A2(_elm_lang$core$Task$attempt, _user$project$Main$processLocation, _elm_lang$geolocation$Geolocation$now)
 };
 var _user$project$Main$subs = function (model) {
 	return _elm_lang$geolocation$Geolocation$changes(_user$project$Main$LocMsg);
