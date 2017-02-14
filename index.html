@@ -33,6 +33,15 @@
 
         var gmap = new google.maps.Map(mapDiv, mapOptions);
 
+        var routeCoordinates = new google.maps.MVCArray();
+        var routePath = new google.maps.Polyline({
+          path: routeCoordinates,
+          strokeColor: "#FF0000",
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        routePath.setMap(gmap);
+
         map.ports.markerMove.subscribe(function(loc) {
             console.log("received", loc);
             var myLatlng = new google.maps.LatLng(loc);
@@ -40,6 +49,9 @@
 
             var myMarker = new google.maps.Marker({position: loc, title: loc.msg});
             myMarker.setMap(gmap);
+
+            routePath.getPath().insertAt(routeCoordinates.length, loc);
+            console.log("routes", routeCoordinates);
         });
     </script>
   </body>
