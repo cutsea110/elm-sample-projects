@@ -52,7 +52,17 @@
             markerList.forEach(function (mkr, idx) {
               mkr.setMap(null);
             });
-            var myMarker = new google.maps.Marker({position: loc, title: loc.msg});
+            var myMarker = new google.maps.Marker({
+              position: loc,
+              title: loc.msg,
+              icon: new google.maps.MarkerImage(
+                'lazy.png',                   // url
+                new google.maps.Size(63,63),  // size
+                new google.maps.Point(0,0),   // origin
+                new google.maps.Point(32,32), // anchor
+                new google.maps.Size(63,63)   // scaledSize
+              )
+            });
             myMarker.setMap(gmap);
             markerList.push(myMarker);
 
