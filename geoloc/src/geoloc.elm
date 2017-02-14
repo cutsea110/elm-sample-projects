@@ -1,12 +1,19 @@
 module Main exposing (..)
 
 import Date exposing (fromTime)
+import Geocoding exposing (..)
 import Geolocation exposing (..)
 import Html exposing (..)
+import Http exposing (Error)
+import List exposing (head)
+import Maybe exposing (map, withDefault)
 import Task
 
 import SharedModels exposing (GMapLoc)
 import Port exposing (markerMove)
+
+myKey : ApiKey
+myKey = "AIzaSyDSb-RzqLlys7vGUjjcTHoO6bTTqIckq-0"
 
 main = Html.program
        { init = init
@@ -15,7 +22,9 @@ main = Html.program
        , subscriptions = subs
        }
 
-type alias Model = Location
+type alias Model = { location: Location
+                   , formattedAddress : String
+                   }
 locToGMLoc : Location -> GMapLoc
 locToGMLoc loc = { lat = loc.latitude
                  , lng = loc.longitude
@@ -24,41 +33,52 @@ locToGMLoc loc = { lat = loc.latitude
                  }
 
 init : (Model, Cmd Msg)
-init = (initializeModel, Task.attempt processLocation Geolocation.now)
+init = (initializeModel, Cmd.none)
 
-processLocation res =
-    case res of
-        Ok loc -> LocMsg loc
-        Err _ -> Failure
+initializeModel : Model
+initializeModel = { location = Location 0 0 0 Nothing Nothing 0
+                  , formattedAddress = "--"
+                  }
 
-initializeModel : Location
-initializeModel = Location 0 0 0 Nothing Nothing 0
-
-type Msg = LocMsg Location | Failure
+type Msg = LocMsg Location | GeoMsg (Result Http.Error Geocoding.Response) | Failure
 
 view : Model -> Html Msg
 view model =
     dl []
-        [ dt [] [text "latitude"]
-        , dd [] [text (toString model.latitude)]
+        [ dt [] [text "formatted address"]
+        , dd [] [text model.formattedAddress]
+        , dt [] [text "latitude"]
+        , dd [] [text (toString model.location.latitude)]
         , dt [] [text "longitude"]
-        , dd [] [text (toString model.longitude)]
+        , dd [] [text (toString model.location.longitude)]
         , dt [] [text "accuracy"]
-        , dd [] [text (toString model.accuracy)]
+        , dd [] [text (toString model.location.accuracy)]
         , dt [] [text "altitude"]
-        , dd [] [text (toString model.altitude)]
+        , dd [] [text (toString model.location.altitude)]
         , dt [] [text "movement"]
-        , dd [] [text (toString model.movement)]
+        , dd [] [text (toString model.location.movement)]
         , dt [] [text "timestamp"]
-        , dd [] [text (toString (fromTime model.timestamp))]
+        , dd [] [text (toString (fromTime model.location.timestamp))]
         ]
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        LocMsg loc -> (loc, markerMove (locToGMLoc loc))
+        LocMsg loc -> ({model | location = loc}, Cmd.batch [ markerMove (locToGMLoc loc)
+                                                           , geocodeGet loc
+                                                           ])
+        GeoMsg (Ok res) -> ({model | formattedAddress =  toAddress res.results }, Cmd.none)
+        GeoMsg (Err _) -> (model, Cmd.none)
         Failure -> (model, Cmd.none)
+
+toAddress : List GeocodingResult -> String
+toAddress res = withDefault "--" (Maybe.map (\r -> r.formattedAddress) (head res))
 
 subs : Model -> Sub Msg
 subs model = Geolocation.changes LocMsg
+
+geocodeGet : Location -> Cmd Msg
+geocodeGet loc =
+    Geocoding.reverseRequestForLatLng myKey (loc.latitude, loc.longitude)
+        |> Geocoding.sendReverseRequest GeoMsg
