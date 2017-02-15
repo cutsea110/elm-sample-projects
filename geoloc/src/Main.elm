@@ -7,7 +7,6 @@ import Html exposing (..)
 import Http exposing (Error)
 import List exposing (head)
 import Maybe exposing (map, withDefault)
-import Task
 
 import SharedModels exposing (GMapLoc)
 import Port exposing (markerMove)
@@ -15,6 +14,7 @@ import Port exposing (markerMove)
 myKey : ApiKey
 myKey = "AIzaSyDSb-RzqLlys7vGUjjcTHoO6bTTqIckq-0"
 
+main : Program Never Model Msg
 main = Html.program
        { init = init
        , view = view
