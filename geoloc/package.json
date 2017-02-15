@@ -1,0 +1,27 @@
+{
+  "name": "geoloc",
+  "version": "0.0.0",
+  "description": "nearmiss project",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "dev": "webpack-dev-server --port 3000"
+  },
+  "author": "Katsutoshi Itoh",
+  "license": "BSD3",
+  "dependencies": {
+    "ace-css": "^1.1.0",
+    "css-loader": "^0.26.1",
+    "elm-webpack-loader": "^4.2.0",
+    "file-loader": "^0.10.0",
+    "font-awesome": "^4.7.0",
+    "foreman": "^2.0.0",
+    "no-export-loader": "^1.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-dev-server": "^1.16.3"
+  }
+}
