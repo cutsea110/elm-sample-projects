@@ -25,8 +25,8 @@ var option = { locations: [ '123.283201','24.117224','150.625329','46.242887' ]}
 var stream = twitter.stream('statuses/filter', option);
 console.log('stream', stream);
 stream.on('tweet', function(tweet) {
-    // console.log(tweet);
-    if (tweet.geo) {
+    console.log(tweet);
+    if (tweet.coordinates) {
 	io.sockets.emit('tweet', tweet);
     }
 });
