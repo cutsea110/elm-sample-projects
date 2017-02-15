@@ -6,10 +6,16 @@ require('font-awesome/css/font-awesome.css');
 // index.htmlがdistにコピーされるようにRequireする
 require('./index.html');
 
-const Twit = require('twit');
-
 var Elm = require('./Main.elm');
 var mountNode = document.getElementById('main');
+
+var io = require('socket.io-client')('http://localhost:4000');
+console.log('io', io);
+var socket = io.connect();
+console.log('socket', socket);
+socket.on('tweet', function(data) {
+    console.log('tweet', data);
+});
 
 // .embed()はオプションの第二引数を取り、プログラム開始に必要なデータを与えられる。たとえばuserIDや何らかのトークンなど
 var app = Elm.Main.embed(mountNode);
