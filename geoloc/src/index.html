@@ -19,57 +19,7 @@
     <h3>Elm-Land</h3>
     <div id="main"></div>
 
-    <script src="geoloc.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDEjL4Y5cx7eiMzjGwU096b1PAtgQBbw0"></script>
-    <script type="text/javascript">
-        var div = document.getElementById('main');
-        var map = Elm.Main.embed(div);
-
-        var mapDiv = document.getElementById('map');
-        var myLatlng = new google.maps.LatLng(0, 0);
-        var mapOptions = {
-          zoom: 18,
-          center: myLatlng
-        };
-
-        var gmap = new google.maps.Map(mapDiv, mapOptions);
-
-        var routeCoordinates = new google.maps.MVCArray();
-        var routePath = new google.maps.Polyline({
-          path: routeCoordinates,
-          strokeColor: "#FF0000",
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-        routePath.setMap(gmap);
-
-        var markerList = new google.maps.MVCArray();
-
-        map.ports.markerMove.subscribe(function(loc) {
-            console.log("received", loc);
-            var myLatlng = new google.maps.LatLng(loc);
-            gmap.setCenter(loc);
-
-            markerList.forEach(function (mkr, idx) {
-              mkr.setMap(null);
-            });
-            var myMarker = new google.maps.Marker({
-              position: loc,
-              title: loc.msg,
-              icon: new google.maps.MarkerImage(
-                'lazy.png',                   // url
-                new google.maps.Size(63,63),  // size
-                new google.maps.Point(0,0),   // origin
-                new google.maps.Point(32,32), // anchor
-                new google.maps.Size(63,63)   // scaledSize
-              )
-            });
-            myMarker.setMap(gmap);
-            markerList.push(myMarker);
-
-            routeCoordinates.push(myLatlng);
-            console.log("routes", routeCoordinates);
-        });
-    </script>
+    <script src="/app.js"></script>
   </body>
 </html>
