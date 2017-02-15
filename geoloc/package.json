@@ -17,7 +17,6 @@
     "file-loader": "^0.10.0",
     "font-awesome": "^4.7.0",
     "foreman": "^2.0.0",
-    "no-export-loader": "^1.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
