@@ -21,7 +21,8 @@ var twitter = twit({
 
 //var option = { locations: [ '-122.75', '36.8', '-121.75', '37.8' ]};
 //var option = { locations: [ '139.0', '35.0', '140.0', '36.0' ]};
-var option = { locations: [ '123.283201','24.117224','150.625329','46.242887' ]};
+//var option = { locations: [ '123.283201','24.117224','150.625329','46.242887' ]};
+var option = { locations: [ '139.71','35.68','139.73','35.72' ]};
 var stream = twitter.stream('statuses/filter', option);
 console.log('stream', stream);
 stream.on('tweet', function(tweet) {

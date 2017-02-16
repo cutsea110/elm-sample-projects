@@ -9,14 +9,6 @@ require('./index.html');
 var Elm = require('./Main.elm');
 var mountNode = document.getElementById('main');
 
-var io = require('socket.io-client')('http://localhost:4000');
-console.log('io', io);
-var socket = io.connect();
-console.log('socket', socket);
-socket.on('tweet', function(data) {
-    console.log('tweet', data);
-});
-
 // .embed()はオプションの第二引数を取り、プログラム開始に必要なデータを与えられる。たとえばuserIDや何らかのトークンなど
 var app = Elm.Main.embed(mountNode);
 
@@ -64,4 +56,30 @@ app.ports.markerMove.subscribe(function(loc) {
 	    
     routeCoordinates.push(myLatlng);
     console.log("routes", routeCoordinates);
+});
+
+// subscribe twitter streaming
+var tweetList = new google.maps.MVCArray();
+
+var io = require('socket.io-client')('http://localhost:4000');
+console.log('io', io);
+var socket = io.connect();
+console.log('socket', socket);
+socket.on('tweet', function(data) {
+    console.log('tweet', data);
+    var loc = { lat: data.coordinates.coordinates[1],
+		lng: data.coordinates.coordinates[0]
+	      };
+    var myLatlng = new google.maps.LatLng(loc);
+    var myMarker = new google.maps.Marker({
+	position: myLatlng,
+	title: data.user.description,
+	icon: data.user.profile_image_url
+    });
+    myMarker.setMap(gmap);
+    tweetList.push(myMarker);
+    new google.maps.InfoWindow({
+	content: data.text
+    }).open(myMarker.getMap(), myMarker);
+	
 });

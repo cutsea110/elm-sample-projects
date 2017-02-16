@@ -1,6 +1,6 @@
-$ elm-make src/Main.elm --debug --output=geoloc.js
-$ cp geoloc.js .. # for projects directory
-# access to file:///home/cutsea110/devel/elm/projects/index.html
-# git add and commit
-# git push origin gh-pages
+# sudo apt install npm
+# ref.) https://devcenter.heroku.com/articles/heroku-cli
+# sudo apt install heroku
+$ npm i -S
+$ node_modules/foreman/nf.js start
 
