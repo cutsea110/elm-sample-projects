@@ -53,7 +53,7 @@ app.ports.markerMove.subscribe(function(loc) {
     });
     myMarker.setMap(gmap);
     markerList.push(myMarker);
-	    
+
     routeCoordinates.push(myLatlng);
     console.log("routes", routeCoordinates);
 });
@@ -78,8 +78,12 @@ socket.on('tweet', function(data) {
     });
     myMarker.setMap(gmap);
     tweetList.push(myMarker);
-    new google.maps.InfoWindow({
+    var myMsg = new google.maps.InfoWindow({
 	content: data.text
-    }).open(myMarker.getMap(), myMarker);
-	
+    });
+    myMsg.open(gmap, myMarker);
+    setTimeout(function(){ myMsg.close(); }, 5000);
+    google.maps.event.addListener(myMarker, "click", function(e){
+	myMsg.open(gmap, myMarker);
+    });
 });
