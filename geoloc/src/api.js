@@ -1,11 +1,15 @@
-var http = require('http');
+var https = require('https');
 var express = require('express');
 var socketio = require('socket.io');
+var fs = require('fs');
 var twit = require('twit');
 
 // Returns an Express server
 var app = express();
-var server = http.createServer(app);
+var server = https.createServer({ key: fs.readFileSync('./src/server_key.pem'),
+				  cert: fs.readFileSync('./src/server_crt.pem')
+				}
+				, app);
 
 var io = socketio.listen(server, {log : false});
 server.listen(4000);

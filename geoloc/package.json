@@ -7,7 +7,7 @@
     "api": "node src/api.js",
     "build": "webpack",
     "watch": "webpack --watch",
-    "dev": "webpack-dev-server --port 3000"
+    "dev": "webpack-dev-server --https --port 3000"
   },
   "author": "Katsutoshi Itoh",
   "license": "BSD3",
@@ -21,6 +21,7 @@
     "foreman": "^2.0.0",
     "fs": "0.0.2",
     "http": "0.0.0",
+    "https": "^1.0.0",
     "json-loader": "^0.5.4",
     "net": "^1.0.2",
     "socket.io": "^1.7.2",

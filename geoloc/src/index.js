@@ -3,7 +3,7 @@
 require('ace-css/css/ace.css');
 require('font-awesome/css/font-awesome.css');
 
-// index.htmlがdistにコピーされるようにRequireする
+// index.html,ssl認証鍵がdistにコピーされるようにRequireする
 require('./index.html');
 
 var Elm = require('./Main.elm');
@@ -13,10 +13,9 @@ var mountNode = document.getElementById('main');
 var app = Elm.Main.embed(mountNode);
 
 var mapDiv = document.getElementById('map');
-var myLatlng = new google.maps.LatLng(0, 0);
 var mapOptions = {
     zoom: 18,
-    center: myLatlng
+    center: new google.maps.LatLng(0, 0)
 };
 
 var gmap = new google.maps.Map(mapDiv, mapOptions);
@@ -31,7 +30,6 @@ var routePath = new google.maps.Polyline({
 routePath.setMap(gmap);
 
 var markerList = new google.maps.MVCArray();
-
 app.ports.markerMove.subscribe(function(loc) {
     console.log("received", loc);
     var myLatlng = new google.maps.LatLng(loc);
@@ -61,7 +59,7 @@ app.ports.markerMove.subscribe(function(loc) {
 // subscribe twitter streaming
 var tweetList = new google.maps.MVCArray();
 
-var io = require('socket.io-client')('http://localhost:4000');
+var io = require('socket.io-client')('https://localhost:4000');
 console.log('io', io);
 var socket = io.connect();
 console.log('socket', socket);
@@ -87,3 +85,4 @@ socket.on('tweet', function(data) {
 	myMsg.open(gmap, myMarker);
     });
 });
+
