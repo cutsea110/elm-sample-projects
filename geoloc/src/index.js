@@ -67,9 +67,11 @@ var socket = io.connect();
 console.log('socket', socket);
 socket.on('tweet', function(data) {
     console.log('tweet', data);
-    markerList.forEach(function (mkr, idx) {
-	if (mkr.userId == data.user.id) {
-	   markerList.removeAt(idx); 
+    tweetList.forEach(function (tw, idx) {
+	if (tw.userId == data.user.id) {
+	    tw.setMap(null);
+	    tweetList.removeAt(idx);
+	    console.log('removed marker', data.user.name+'@'+data.user.screen_name);
 	}
     });
     var loc = { lat: data.coordinates.coordinates[1],
