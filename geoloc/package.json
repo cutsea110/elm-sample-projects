@@ -13,6 +13,7 @@
   "license": "BSD3",
   "dependencies": {
     "ace-css": "^1.1.0",
+    "body-parser": "^1.16.1",
     "css-loader": "^0.26.1",
     "elm-webpack-loader": "^4.2.0",
     "express": "^4.14.1",
