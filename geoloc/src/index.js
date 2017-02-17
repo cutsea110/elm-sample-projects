@@ -58,6 +58,8 @@ app.ports.markerMove.subscribe(function(loc) {
 
 // subscribe twitter streaming
 var tweetList = new google.maps.MVCArray();
+var twtext = require('twitter-text');
+var twemoji = require('twemoji');
 
 var io = require('socket.io-client')('https://localhost:4000');
 console.log('io', io);
@@ -65,6 +67,11 @@ var socket = io.connect();
 console.log('socket', socket);
 socket.on('tweet', function(data) {
     console.log('tweet', data);
+    markerList.forEach(function (mkr, idx) {
+	if (mkr.userId == data.user.id) {
+	   markerList.removeAt(idx); 
+	}
+    });
     var loc = { lat: data.coordinates.coordinates[1],
 		lng: data.coordinates.coordinates[0]
 	      };
@@ -72,12 +79,13 @@ socket.on('tweet', function(data) {
     var myMarker = new google.maps.Marker({
 	position: myLatlng,
 	title: data.user.description,
-	icon: data.user.profile_image_url
+	icon: data.user.profile_image_url,
+	userId: data.user.id
     });
     myMarker.setMap(gmap);
     tweetList.push(myMarker);
     var myMsg = new google.maps.InfoWindow({
-	content: data.text
+	content: twemoji.parse(twtext.autoLink(twtext.htmlEscape(data.text)),{size:16})
     });
     myMsg.open(gmap, myMarker);
     setTimeout(function(){ myMsg.close(); }, 5000);
