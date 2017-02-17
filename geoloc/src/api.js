@@ -23,7 +23,7 @@ var twitter = twit({
     access_token_secret: 'Mz5pX9ufU987KINol7V9x79kC3Kmp5k1nH1ZntZqdA414'
 });
 
-//var option = { locations: [ '-122.75', '36.8', '-121.75', '37.8' ]};
+var option2 = { locations: [ '-122.75', '36.8', '-121.75', '37.8' ]};
 //var option = { locations: [ '139.0', '35.0', '140.0', '36.0' ]};
 //var option = { locations: [ '123.283201','24.117224','150.625329','46.242887' ]};
 var option = { locations: [ '139.71','35.68','139.73','35.72' ]};
@@ -38,3 +38,17 @@ stream.on('tweet', function(tweet) {
 	io.sockets.emit('tweet', tweet);
     }
 });
+setTimeout(function(){
+    console.log("XXXXXXX");
+    stream.stop();
+    stream = twitter.stream('statuses/filter', option2);
+    stream.on('tweet', function(tweet) {
+        // simple
+        console.log(tweet.user.name+'@'+tweet.user.screen_name+' < '+tweet.text);
+        // verbose
+        //console.log(tweet);
+        if (tweet.coordinates) {
+	    io.sockets.emit('tweet', tweet);
+        }
+    });
+}, 20000);
