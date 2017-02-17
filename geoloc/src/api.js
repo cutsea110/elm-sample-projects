@@ -17,11 +17,13 @@ var stream = null;
 
 function refreshStream(loc) {
     var lat = loc.latitude, lng = loc.longitude,
-	option = [(lng-0.01).toString(),
-		  (lat-0.01).toString(),
-		  (lng+0.01).toString(),
-		  (lat+0.01).toString()
-		 ];
+	option = { locations : [(lng-0.01).toString(),
+		                (lat-0.01).toString(),
+		                (lng+0.01).toString(),
+		                (lat+0.01).toString()
+		               ]
+                 };
+    console.log('option', option);
     stream = twitter.stream('statuses/filter', option);
     stream.on('tweet', function(tweet) {
 	// simple
@@ -36,7 +38,7 @@ function refreshStream(loc) {
     console.log('************************************');
     console.log(' R E S T A R T: ' + loc.latitude + "," + loc.longitude);
     console.log('************************************');
-}
+};
 
 //var option = { locations: [ '-122.75', '36.8', '-121.75', '37.8' ]};
 //var option = { locations: [ '139.0', '35.0', '140.0', '36.0' ]};
@@ -59,7 +61,7 @@ app.use(bodyParser.json());
 app.post('/move-to', function(req, res) {
     console.log('Marker moved', req.body);
 
-//    stream.stop();
+    stream.stop();
     refreshStream(req.body);
 
     res.send('POST request ok');
