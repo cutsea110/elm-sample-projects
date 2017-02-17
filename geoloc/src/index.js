@@ -87,7 +87,7 @@ socket.on('tweet', function(data) {
     myMarker.setMap(gmap);
     tweetList.push(myMarker);
     var myMsg = new google.maps.InfoWindow({
-	content: twemoji.parse(twtext.autoLink(twtext.htmlEscape(data.text)),{size:16})
+	content: twemoji.parse(twtext.autoLink(twtext.htmlEscape(data.text)),{size:72})
     });
     myMsg.open(gmap, myMarker);
     setTimeout(function(){ myMsg.close(); }, 5000);
