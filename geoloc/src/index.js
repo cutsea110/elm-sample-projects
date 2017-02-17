@@ -84,6 +84,7 @@ socket.on('tweet', function(data) {
 	title: data.user.description,
 	icon: data.user.profile_image_url,
 	userId: data.user.id,
+	userName: data.user.screen_name,
 	zIndex: zIndex++
     });
     myMarker.setMap(gmap);
@@ -96,5 +97,7 @@ socket.on('tweet', function(data) {
     google.maps.event.addListener(myMarker, "click", function(e){
 	myMsg.open(gmap, myMarker);
     });
+    google.maps.event.addListener(myMarker, "dblclick", function(e) {
+	window.open("https://twitter.com/"+myMarker.userName, "_blank");
+    });
 });
-
