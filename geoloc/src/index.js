@@ -14,7 +14,7 @@ var app = Elm.Main.embed(mountNode);
 
 var mapDiv = document.getElementById('map');
 var mapOptions = {
-    zoom: 18,
+    zoom: 13,
     center: new google.maps.LatLng(0, 0)
 };
 
