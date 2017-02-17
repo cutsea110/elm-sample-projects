@@ -60,6 +60,7 @@ app.ports.markerMove.subscribe(function(loc) {
 var tweetList = new google.maps.MVCArray();
 var twtext = require('twitter-text');
 var twemoji = require('twemoji');
+var zIndex = 1;
 
 var io = require('socket.io-client')('https://localhost:4000');
 console.log('io', io);
@@ -82,7 +83,8 @@ socket.on('tweet', function(data) {
 	position: myLatlng,
 	title: data.user.description,
 	icon: data.user.profile_image_url,
-	userId: data.user.id
+	userId: data.user.id,
+	zIndex: zIndex++
     });
     myMarker.setMap(gmap);
     tweetList.push(myMarker);
