@@ -30,7 +30,10 @@ var option = { locations: [ '139.71','35.68','139.73','35.72' ]};
 var stream = twitter.stream('statuses/filter', option);
 console.log('stream', stream);
 stream.on('tweet', function(tweet) {
-    console.log(tweet);
+    // simple
+    console.log(tweet.user.name+'@'+tweet.user.screen_name+' < '+tweet.text);
+    // verbose
+    //console.log(tweet);
     if (tweet.coordinates) {
 	io.sockets.emit('tweet', tweet);
     }
