@@ -3,6 +3,7 @@
 # sudo apt install heroku
 $ npm i -S
 $ node_modules/foreman/nf.js start
+# Access to https://localhost:3000 by web browser.
 
 # Troubleshooting
 # If you look at net::ERR_INSECURE_RESPONSE error occuring in google-chrome,
